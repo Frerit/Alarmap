@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Login extends HelperBase {
+public class Login extends BaseHelper {
 
     FirebaseAuth auth;
     FirebaseAuth.AuthStateListener mAuthListener;
