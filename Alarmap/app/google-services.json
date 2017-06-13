@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "409500782598",
+    "firebase_url": "https://alarmap-58abc.firebaseio.com",
+    "project_id": "alarmap-58abc",
+    "storage_bucket": "alarmap-58abc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409500782598:android:550b180e76f2d275",
+        "android_client_info": {
+          "package_name": "info.alarmap.us.alarmap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409500782598-dfaqmnte7peoovdnrspn9r2o9jnju2n0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "info.alarmap.us.alarmap",
+            "certificate_hash": "ede47b5e8abf34eef7fbc695220e5a34c6f38c28"
+          }
+        },
+        {
+          "client_id": "409500782598-apis71ddrhcl23bgtdigifqm5phm5hdr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCplpxt3vIdW5A5K-FVMTDMFwB6zluBI5U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409500782598-apis71ddrhcl23bgtdigifqm5phm5hdr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
