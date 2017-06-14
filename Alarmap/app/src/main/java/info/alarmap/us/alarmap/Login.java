@@ -62,7 +62,7 @@ public class Login extends BaseHelper {
                     useData.put("id",user.getUid());
                     useData.put("email",user.getEmail());
                     ref.child(user.getUid()).setValue(useData);
-
+                    startActivity(new Intent(Login.this, Main.class));
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
