@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -24,6 +25,7 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
 
 
     private GoogleMap mMap;
+
 
     public _ExploreFragment() {
         // Required empty public constructor
@@ -41,9 +43,10 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SupportMapFragment mapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.mapView);
-        mapFragment.getMapAsync(this);
+
+        SupportMapFragment mapFragment1 = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapView);
+        mapFragment1.getMapAsync(this);
+
     }
 
     @Override
