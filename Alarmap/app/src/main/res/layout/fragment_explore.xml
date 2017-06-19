@@ -9,44 +9,91 @@
     <!-- TODO: Update blank fragment layout -->
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/mapView"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:context="com.example.mapwithmarker.MapsMarkerActivity"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="0dp" />
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/mapView"
+              android:name="com.google.android.gms.maps.SupportMapFragment"
+              android:layout_width="0dp"
+              android:layout_height="0dp"
+              tools:context="com.example.mapwithmarker.MapsMarkerActivity"
+              app:layout_constraintRight_toRightOf="parent"
+              app:layout_constraintLeft_toLeftOf="parent"
+              app:layout_constraintHorizontal_bias="1.0"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintVertical_bias="1.0"/>
 
 
     <android.support.v7.widget.CardView
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:alpha="1"
+        android:paddingBottom="5dp"
         app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="6dp"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="16dp">
+        app:layout_constraintRight_toRightOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            tools:layout_editor_absoluteY="8dp"
-            tools:layout_editor_absoluteX="8dp">
+            android:paddingBottom="0dp"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/aadtextxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="Agregar "
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Filtrar"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="Buscar"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/shared"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Compartir"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
 
             <ImageButton
                 android:id="@+id/add_post"
@@ -55,16 +102,16 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/cardview_light_background"
-                app:srcCompat="@android:drawable/ic_menu_add" />
+                app:srcCompat="@android:drawable/ic_menu_add"/>
 
             <ImageButton
-                android:id="@+id/localization_me"
+                android:id="@+id/filtroMap"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:background="@color/cardview_light_background"
-                app:srcCompat="@android:drawable/ic_menu_mylocation" />
+                android:background="@android:color/transparent"
+                app:srcCompat="@android:drawable/ic_menu_sort_by_size"/>
 
             <ImageButton
                 android:id="@+id/search_map"
@@ -73,7 +120,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/cardview_light_background"
-                app:srcCompat="@android:drawable/ic_menu_search" />
+                app:srcCompat="@android:drawable/ic_menu_search"/>
 
             <ImageButton
                 android:id="@+id/share_post"
@@ -82,9 +129,367 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/cardview_light_background"
-                app:srcCompat="@android:drawable/ic_menu_share" />
+                app:srcCompat="@android:drawable/ic_menu_share"/>
 
         </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/modalAddIncident"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mapView"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="760dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/titleModal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="100"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:gravity=""
+                        android:text="Registrar Incidencia"
+                        android:textSize="17sp"
+                        android:textStyle="bold"/>
+
+                    <ImageButton
+                        android:id="@+id/closeModal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/background_light"
+                        app:srcCompat="@android:drawable/ic_delete"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="100"
+                        android:text="Datos Generales"/>
+
+                    <TextView
+                        android:id="@+id/lines"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="100"
+                        android:background="?attr/colorButtonNormal"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="100"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:text="Registrar como:"
+                            android:textSize="12sp"/>
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <RadioButton
+                                android:id="@+id/type1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:checked="true"
+                                android:text="Usuario"
+                                android:textSize="13sp"/>
+
+                            <RadioButton
+                                android:id="@+id/type2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Anonimo"
+                                android:textSize="13sp"/>
+
+                        </RadioGroup>
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:text="Provehedor"
+                            android:textSize="12sp"/>
+
+                        <Spinner
+                            android:id="@+id/spinner4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="100">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:hint="Descripcion"
+                            android:textSize="14sp"/>
+                    </android.support.design.widget.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="100"
+                        android:text="Ubicacion de la Incidencia"/>
+
+                    <TextView
+                        android:id="@+id/lines2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="100"
+                        android:background="?attr/colorButtonNormal"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="100"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="2"
+                            android:backgroundTint="@color/colorGray"
+                            android:text="Optener mi Ubicación"
+                            android:textColor="@android:color/white"
+                            android:textColorLink="@android:color/white"
+                            android:textSize="12sp"/>
+
+                        <Button
+                            android:id="@+id/button5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:backgroundTint="@color/colorKymber"
+                            android:text="Manualmente"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ubicatioManual"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="100"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="100"
+                            android:text="Ubicacion"/>
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="100"
+                            />
+
+                        <Spinner
+                            android:id="@+id/spinner2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="100"/>
+
+                        <Spinner
+                            android:id="@+id/spinner3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="100"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="100"
+                            android:orientation="horizontal">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Dirrecion"
+                                    android:textSize="14sp"/>
+
+                            </android.support.design.widget.TextInputLayout>
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2">
+
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Complento"
+                                    android:textSize="14sp"/>
+                            </android.support.design.widget.TextInputLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:text="Opcionales"/>
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:background="?attr/colorButtonNormal"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/colorGray"
+                            android:drawableLeft="@drawable/ic_add_a_photo"
+                            android:text="Tomar foto"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp"/>
+
+                        <Button
+                            android:id="@+id/button6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/colorKymber"
+                            android:text="Subir foto"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/saveRegistro"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="@color/colorShads"
+                    android:paddingLeft="0dp"
+                    android:paddingStart="0dp"
+                    android:text="Guardar"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_weight="1"
+                    />
+
+            </LinearLayout>
+        </ScrollView>
 
     </android.support.v7.widget.CardView>
 
