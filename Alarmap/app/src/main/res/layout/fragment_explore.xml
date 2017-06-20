@@ -145,7 +145,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -275,9 +275,9 @@
                             android:textSize="12sp"/>
 
                         <Spinner
-                            android:id="@+id/spinner4"
+                            android:id="@+id/conpanyProve"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:layout_weight="1"/>
 
                     </LinearLayout>
@@ -288,6 +288,7 @@
                         android:layout_weight="100">
 
                         <EditText
+                            android:id="@+id/incidenDescrip"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:hint="Descripcion"
@@ -318,7 +319,7 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button4"
+                            android:id="@+id/locations"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginRight="5dp"
@@ -330,7 +331,7 @@
                             android:textSize="12sp"/>
 
                         <Button
-                            android:id="@+id/button5"
+                            android:id="@+id/locationManual"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="3"
@@ -348,7 +349,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_weight="100"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/textView6"
@@ -361,20 +362,20 @@
                         <Spinner
                             android:id="@+id/spinner"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:layout_weight="100"
                             />
 
                         <Spinner
                             android:id="@+id/spinner2"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:layout_weight="100"/>
 
                         <Spinner
                             android:id="@+id/spinner3"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:layout_weight="100"/>
 
                         <LinearLayout
@@ -466,6 +467,13 @@
                             android:textColor="@android:color/white"
                             android:textSize="12sp"/>
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"/>
 
                 </LinearLayout>
 

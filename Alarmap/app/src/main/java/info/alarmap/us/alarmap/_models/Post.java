@@ -5,7 +5,7 @@ package info.alarmap.us.alarmap._models;
  */
 
 public class Post {
-    public Double id;
+    public String id;
     public Double lat;
     public Double lon;
 
@@ -13,17 +13,18 @@ public class Post {
 
     }
 
-    public Post(Double id,Double lat,Double lon) {
+    public Post(String id,Double lat,Double lon) {
         this.id   = id;
         this.lat  = lat;
         this.lon  = lon;
     }
 
-    public Double getId() {
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Double id) {
+    public void setId(String id) {
         this.id = id;
     }
 

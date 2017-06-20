@@ -23,10 +23,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
@@ -54,10 +59,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import info.alarmap.us.alarmap.R;
+import info.alarmap.us.alarmap._models.Incidence;
 import info.alarmap.us.alarmap._models.Post;
 
 /**
@@ -83,14 +90,25 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
     //Madals
     CardView modalAdd;
     RadioButton type1, type2;
+    LinearLayout ubiationManual;
+    Spinner companyProvehedor;
+    TextView incidentDes;
 
     // Forms
     String typeUser;
+    String companyType;
+    String incidenDesctip;
+    Post localization;
+    ArrayList<String> LocationCompuest;
+    String incidenImage;
+
+
+    // Dats
+    String[] provehedor = {"Escoje un Servicio","Agua","Energia","Gas","Internet","Parabolica","Incidente Publico","Otros (Queja General)"};
 
     public _ExploreFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,6 +144,38 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
         type1 = (RadioButton) v.findViewById( R.id.type1 );
         type2 = (RadioButton) v.findViewById( R.id.type2 );
 
+        Button manualLocal = (Button) v.findViewById( R.id.locationManual );
+        ubiationManual = (LinearLayout) v.findViewById( R.id.ubicatioManual );
+        companyProvehedor = (Spinner) v.findViewById( R.id.conpanyProve );
+        ArrayAdapter<String> adapteCompany = new ArrayAdapter<String>( getContext(), android.R.layout.simple_spinner_item, provehedor );
+        companyProvehedor.setAdapter( adapteCompany );
+
+        manualLocal.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {  if (ubiationManual.getVisibility() == View.GONE) {  ubiationManual.setVisibility( View.VISIBLE );
+                } else {  ubiationManual.setVisibility( View.GONE );   }
+            }
+        } );
+
+        companyProvehedor.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+                companyType = provehedor[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                companyType = null;
+            }
+        } );
+        incidentDes = (TextView) v.findViewById( R.id.incidenDescrip );
+        Button locat = (Button) v.findViewById( R.id.locations );
+        locat.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setUpMap();
+            }
+        } );
 
         return v;
     }
@@ -166,7 +216,6 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
         dialog.show();
     }
 
-
     private boolean isLocationEnabled() {
         boolean enableOrDis = locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER );
         boolean enOrdis =  locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER );
@@ -174,7 +223,6 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
         return  (enableOrDis || enOrdis);
 
     }
-
 
     private boolean checkLocation() {
         if (!isLocationEnabled())
@@ -193,7 +241,7 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
         comenzarLocalizacion();
         final LatLng position = new LatLng( latitud, longitud );
         //mMap.addMarker( new MarkerOptions().position( position ).title( "Mi positions" ) );
-        mMap.moveCamera( CameraUpdateFactory.newLatLngZoom( position, 14 ) );
+        mMap.moveCamera( CameraUpdateFactory.newLatLngZoom( position, 13 ) );
         mMap.getUiSettings().setCompassEnabled( true );
 
     }
@@ -215,6 +263,7 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
             // permissions this app might request
         }
     }
+
     private void comenzarLocalizacion() {
         LocationManager locationManager;
         String context = Context.LOCATION_SERVICE;
@@ -269,28 +318,24 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-
-
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         setUpMap();
-        positions = new ArrayList<>();
+        positions = new ArrayList<Post>();
 
-
-        ref.addValueEventListener( new ValueEventListener() {
+        ref.child( "Incidents" ).addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d( "---- for : ", " entoooo " );
                 String value = dataSnapshot.getValue().toString();
                 positions.removeAll( positions );
-//                for (DataSnapshot snapshot:
-//                     dataSnapshot.getChildren()) {
-//                    Post post = snapshot.getValue(Post.class);
-//                    positions.add(post);
-//                    Log.d("---- for : ",positions.toString());
-//                }
+                for (DataSnapshot snapshot:
+                     dataSnapshot.getChildren()) {
+                    Post post = snapshot.getValue(Post.class);
+                    positions.add(post);
+                    addCircle(post);
+                }
 
             }
 
@@ -318,10 +363,10 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
     public Circle addCircle(Post post) {
         circle = mMap.addCircle( new CircleOptions()
                 .center( new LatLng( post.lat, post.lon ) )
-                .radius( 10 )
+                .radius( 100 )
                 .strokeWidth( 1 )
-                .strokeColor( Color.MAGENTA )
-                .fillColor( Color.argb( 128, 255, 0, 0 ) )
+                .strokeColor( Color.argb( 70,255,75,75 ) )
+                .fillColor( Color.argb( 40,255,75,75 ) )
                 .clickable( true ) );
 
         return circle;
@@ -341,7 +386,19 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
 
     public void saveRegistrosFire() {
         typeUser = (type2.isChecked()) ?  "Anonimo" :  user.getUid();
+        companyType = (companyType != null) ? companyType : "Other";
+        incidenDesctip = incidentDes.getText().toString();
+        localization = new Post(user.getUid(), latitud, longitud );
+        incidenImage = "https://placeimg.com/400/300/arch";
 
+        Incidence data = new Incidence(typeUser,companyType,incidenDesctip,localization,incidenImage );
+        Map<String,Post> local = new HashMap<String, Post>(  );
+        ref.child("Users").child( user.getUid() ).child( "Post" ).push().setValue( data );
+        ref.child( "Incidents" ).push().setValue( localization, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                ToggleModal();
+            }
+        } );
     }
-
 }
