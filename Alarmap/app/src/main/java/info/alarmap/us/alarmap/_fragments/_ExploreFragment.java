@@ -16,7 +16,6 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -26,22 +25,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.firebase.geofire.GeoFire;
-import com.firebase.geofire.GeoLocation;
-import com.firebase.geofire.GeoQuery;
-import com.firebase.geofire.LocationCallback;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -75,7 +65,6 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private Circle circle;
-    private GeoQuery geoQuery;
 
     List<Post> positions;
     LocationManager locationManager;
@@ -388,7 +377,7 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
         typeUser = (type2.isChecked()) ?  "Anonimo" :  user.getUid();
         companyType = (companyType != null) ? companyType : "Other";
         incidenDesctip = incidentDes.getText().toString();
-        localization = new Post(user.getUid(), latitud, longitud );
+        localization = new Post(user.getUid(), latitud, longitud, companyType );
         incidenImage = "https://placeimg.com/400/300/arch";
 
         Incidence data = new Incidence(typeUser,companyType,incidenDesctip,localization,incidenImage );

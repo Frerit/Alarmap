@@ -8,17 +8,19 @@ public class Post {
     public String id;
     public Double lat;
     public Double lon;
+    public String tipeId;
 
     public Post() {
 
     }
 
-    public Post(String id,Double lat,Double lon) {
+    public Post(String id,Double lat,Double lon, String tipeId) {
         this.id   = id;
         this.lat  = lat;
         this.lon  = lon;
-    }
+        this.tipeId = tipeId;
 
+    }
 
     public String getId() {
         return id;
@@ -43,4 +45,8 @@ public class Post {
     public void setLon(Double lon) {
         this.lon = lon;
     }
+
+    public String getTipeId() {return tipeId; }
+
+    public void setTipeId(String tipeId) { this.tipeId = tipeId; }
 }
