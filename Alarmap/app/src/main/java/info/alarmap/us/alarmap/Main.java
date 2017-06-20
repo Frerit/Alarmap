@@ -1,5 +1,7 @@
 package info.alarmap.us.alarmap;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -48,6 +50,10 @@ public class Main extends AppCompatActivity {
         createHomeFragment();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        navigation.setItemTextColor( ColorStateList.valueOf( Color.argb( 255,46,40,96 ) ));
+        navigation.setDrawingCacheBackgroundColor( Color.argb( 255,46,40,96 ));
+        navigation.setItemIconTintList( ColorStateList.valueOf( Color.argb( 255,82,77,139 ) ) );
     }
 
     private void createHomeFragment() {

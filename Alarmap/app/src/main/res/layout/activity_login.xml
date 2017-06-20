@@ -60,7 +60,7 @@
         android:onClick="ProcessLogin"
         android:text="Log In"
         android:textColor="@android:color/background_light"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"/>
 
 
     <LinearLayout

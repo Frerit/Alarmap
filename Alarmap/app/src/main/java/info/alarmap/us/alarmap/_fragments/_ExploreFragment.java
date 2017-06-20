@@ -6,16 +6,25 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -91,6 +100,9 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
     ArrayList<String> LocationCompuest;
     String incidenImage;
 
+    Bitmap iconBit;
+    int drawerIcon;
+    int colorStroke;
 
     // Dats
     String[] provehedor = {"Escoje un Servicio","Agua","Energia","Gas","Internet","Parabolica","Incidente Publico","Otros (Queja General)"};
@@ -325,7 +337,6 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
                     positions.add(post);
                     addCircle(post);
                 }
-
             }
 
             @Override
@@ -348,17 +359,48 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
 
     public Circle addCircle(Post post) {
+
+        switch (post.tipeId.toString()) {
+            case "Energia":  drawerIcon = R.drawable.energia; colorStroke = Color.argb( 87,255,68,68 );  break;
+            case "Agua": drawerIcon = R.drawable.agua; colorStroke = Color.argb( 63,116,133,227 );   break;
+            case "Gas": drawerIcon = R.drawable.gas; colorStroke = Color.argb( 87,131,190,72 );   break;
+            case "Internet": drawerIcon = R.drawable.servinternet; colorStroke = Color.argb( 87,44,196,237);   break;
+            case "Parabolica": drawerIcon = R.drawable.parabolica; colorStroke = Color.argb( 87,244,176,6 );  break;
+            case "Incidente Publico": drawerIcon = R.drawable.incipublic; colorStroke = Color.argb( 87,115,26,60 );   break;
+        }
+
+
         circle = mMap.addCircle( new CircleOptions()
                 .center( new LatLng( post.lat, post.lon ) )
                 .radius( 100 )
                 .strokeWidth( 1 )
-                .strokeColor( Color.argb( 70,255,75,75 ) )
-                .fillColor( Color.argb( 40,255,75,75 ) )
+                .strokeColor( colorStroke )
+                .fillColor( Color.argb( 60,255,75,75 ) )
                 .clickable( true ) );
 
+
+        iconBit = getBitmapFromVectorDrawable( getContext(),drawerIcon );
+        mMap.addMarker( new MarkerOptions()
+                .icon( BitmapDescriptorFactory.fromBitmap( iconBit ) )
+                .position( new LatLng( post.lat,post.lon ) ).title( "Servicio:" + post.tipeId.toString() ) );
         return circle;
+
     }
 
     public void addPosts() {
@@ -387,6 +429,8 @@ public class _ExploreFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 ToggleModal();
+                type2.setChecked( false );
+                incidentDes.setText( "" );
             }
         } );
     }
