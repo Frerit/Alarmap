@@ -1,6 +1,7 @@
 package info.alarmap.us.alarmap._fragments;
 
 
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +60,7 @@ public class _DashBoardFragment extends Fragment {
         recicler = (RecyclerView) v.findViewById( R.id.recyclerDash );
         RecyclerView.LayoutManager layou = new GridLayoutManager( getContext(), 2 );
         recicler.setLayoutManager( layou);
+        recicler.addItemDecoration( new GridSpacingItemDecoration( 2, dpToPx(10), true ) );
         recicler.setItemAnimator( new DefaultItemAnimator() );
 
         database.getReference().child( "Users" ).child( user.getUid()).child( "Post" ).addValueEventListener( new ValueEventListener() {
@@ -72,7 +75,7 @@ public class _DashBoardFragment extends Fragment {
                     Log.d( "---------- ",inciden.toString() );
                 }
 
-                adaptador = new AdaterRecy(incidences);
+                adaptador = new AdaterRecy(getContext(), incidences);
                 adaptador.notifyDataSetChanged();
                 recicler.setAdapter( adaptador );
 
@@ -86,34 +89,6 @@ public class _DashBoardFragment extends Fragment {
         return v;
     }
 
-    public void iniColapse() {
-        final CollapsingToolbarLayout collase = (CollapsingToolbarLayout) getView().findViewById( R.id.collapsin_toobar );
-        collase.setTitle( " " );
-        final AppBarLayout appBarLayo  = (AppBarLayout)getView().findViewById( R.id.appbar );
-        appBarLayo.setExpanded( true );
-
-        appBarLayo.addOnOffsetChangedListener( new AppBarLayout.OnOffsetChangedListener() {
-            boolean isSwow;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayo.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    collase.setTitle( "Card View" );
-
-                } else if (isSwow) {
-                    collase.setTitle( "No la prexima" );
-                }
-                else {
-                    collase.setTitle( " " );
-                    isSwow = false;
-                }
-            }
-        } );
-    }
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
         private int spanCount;
@@ -147,5 +122,11 @@ public class _DashBoardFragment extends Fragment {
             }
         }
     }
+
+    private int dpToPx(int dp) {
+        Resources r = getResources();
+        return Math.round( TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
 
 }

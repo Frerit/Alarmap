@@ -16,4 +16,19 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">Main</string>
+    <string name="optionMenu2">Reportar Publicacion</string>
+    <string name="optionMenu1">Ocultar Publicacion</string>
+    <string name="optionMenu0">Agregar a Favoritos</string>
+
+
+    <string-array name="notification">
+        <item>Se a realizado una incidencia serca a tu posicion</item>
+        <item>Realizaron un comentado a tu incidencia</item>
+        <item>Se a realizado una incidencia serca a tu posicion</item>
+        <item>Se a realizado una incidencia serca a tu posicion</item>
+        <item>Se a realizado una incidencia serca a tu posicion</item>
+        <item>Realizaron un comentado a tu incidencia</item>
+        <item>Se ha ocultado tu publicacion</item>
+        <item>Han reportado tu publicacion</item>
+    </string-array>
 </resources>

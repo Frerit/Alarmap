@@ -40,6 +40,11 @@ public class Main extends AppCompatActivity {
                             .commit();
                     return true;
                 case R.id.navigation_notifications:
+                    _NotificationFragment notificationFragment = new _NotificationFragment();
+                    FragmentManager changeNotify = getSupportFragmentManager();
+                    changeNotify.beginTransaction()
+                            .replace( R.id.contentLayout, notificationFragment )
+                            .commit();
                     return true;
             }
             return false;
