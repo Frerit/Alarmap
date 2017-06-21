@@ -18,6 +18,19 @@ public class Incidence {
     public  Incidence() {
     }
 
+    public Incidence(String typeUser,
+                     String companyType,
+                     String incidenDesctiption,
+                     Post localization,
+                     String incidenImage
+    ) {
+        this.typeUser = typeUser;
+        this.companyType = companyType;
+        this.incidenDesctiption = incidenDesctiption;
+        this.localization = localization;
+        this.incidenImage = incidenImage;
+    }
+
     public Incidence(String id,
 
                       String typeUser,
@@ -34,16 +47,5 @@ public class Incidence {
         this.incidenImage = incidenImage;
     }
 
-    public Incidence(String typeUser,
-                     String companyType,
-                     String incidenDesctiption,
-                     Post localization,
-                     String incidenImage
-    ) {
-        this.typeUser = typeUser;
-        this.companyType = companyType;
-        this.incidenDesctiption = incidenDesctiption;
-        this.localization = localization;
-        this.incidenImage = incidenImage;
-    }
+
 }

@@ -33,6 +33,11 @@ public class Main extends AppCompatActivity {
                             .commit();
                     return true;
                 case R.id.navigation_dashboard:
+                    _DashBoardFragment dashBoardFragment = new _DashBoardFragment();
+                    FragmentManager changeDash = getSupportFragmentManager();
+                    changeDash.beginTransaction()
+                            .replace( R.id.contentLayout, dashBoardFragment )
+                            .commit();
                     return true;
                 case R.id.navigation_notifications:
                     return true;
