@@ -1,9 +1,14 @@
 package info.alarmap.us.alarmap._fragments;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -51,7 +56,9 @@ public class _DashBoardFragment extends Fragment {
         incidences = new ArrayList<Incidence>(  );
 
         recicler = (RecyclerView) v.findViewById( R.id.recyclerDash );
-        recicler.setLayoutManager( new LinearLayoutManager(getContext()));
+        RecyclerView.LayoutManager layou = new GridLayoutManager( getContext(), 2 );
+        recicler.setLayoutManager( layou);
+        recicler.setItemAnimator( new DefaultItemAnimator() );
 
         database.getReference().child( "Users" ).child( user.getUid()).child( "Post" ).addValueEventListener( new ValueEventListener() {
             @Override
@@ -76,15 +83,69 @@ public class _DashBoardFragment extends Fragment {
             }
         } );
 
-
-
-
-
         return v;
     }
 
-    public String toStrin() {
-        return "fragment_dash_board";
+    public void iniColapse() {
+        final CollapsingToolbarLayout collase = (CollapsingToolbarLayout) getView().findViewById( R.id.collapsin_toobar );
+        collase.setTitle( " " );
+        final AppBarLayout appBarLayo  = (AppBarLayout)getView().findViewById( R.id.appbar );
+        appBarLayo.setExpanded( true );
+
+        appBarLayo.addOnOffsetChangedListener( new AppBarLayout.OnOffsetChangedListener() {
+            boolean isSwow;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayo.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collase.setTitle( "Card View" );
+
+                } else if (isSwow) {
+                    collase.setTitle( "No la prexima" );
+                }
+                else {
+                    collase.setTitle( " " );
+                    isSwow = false;
+                }
+            }
+        } );
+    }
+
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        public void getItemOffset(Rect outRect,View view, RecyclerView parent, RecyclerView.State state) {
+            int positio = parent.getChildAdapterPosition( view );
+            int column = positio % spanCount;
+
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount;
+                outRect.right = (column + 1) * spacing / spanCount;
+
+                if (positio < spanCount) {
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing;
+            } else {
+                outRect.left = column * spacing / spanCount;
+                outRect.right = spacing - (column + 1) * spacing / spanCount;
+                if (positio > spanCount) {
+                    outRect.top = spacing;
+                }
+            }
+        }
     }
 
 }
