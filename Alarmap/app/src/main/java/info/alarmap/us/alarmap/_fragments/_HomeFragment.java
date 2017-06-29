@@ -42,7 +42,6 @@ public class _HomeFragment extends Fragment {
                 startActivity( intent );
             }
         } );
-
         return v;
     }
 
